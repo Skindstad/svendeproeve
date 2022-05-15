@@ -18,6 +18,10 @@ require_once(ROOT_DIR . '/helpers.php');
 $env = new JsonEnv(ROOT_DIR . '/.env.json');
 //$env->load();
 
+// Load custom validation messages
+require_once(ROOT_DIR . '/resources/i18n/custom_messages.php');
+require_once(ROOT_DIR . '/resources/i18n/attribute_aliases.php');
+
 // Set default Controller class namespace
 Router::setDefaultNamespace('\App\Controllers');
 
