@@ -1,10 +1,11 @@
 <?php
 
-use Pecee\Http\Input\InputHandler;
-use Pecee\SimpleRouter\SimpleRouter as Router;
-use Pecee\Http\Url;
-use Pecee\Http\Response;
 use Pecee\Http\Request;
+use Pecee\Http\Response;
+use Pecee\Http\Url;
+use Pecee\SimpleRouter\SimpleRouter as Router;
+use Rakit\Validation\Validation;
+use Rakit\Validation\Validator;
 
 /**
  * Get url for a route by using either name/alias, class or method name.
@@ -52,7 +53,7 @@ function request(): Request
  * @param array ...$methods Default methods
  * @return \Pecee\Http\Input\InputHandler|array|string|null
  */
-function input($index = null, $defaultValue = null, ...$methods): InputHandler
+function input($index = null, $defaultValue = null, ...$methods)
 {
     if ($index !== null) {
         return request()->getInputHandler()->value($index, $defaultValue, ...$methods);
@@ -74,6 +75,12 @@ function redirect(string $url, ?int $code = null): void
     response()->redirect($url);
 }
 
+function redirectWithError(string $url, string $message): void
+{
+    $_SESSION['errors'][] = $message;
+    redirect($url);
+}
+
 /**
  * Get current csrf-token
  * @return string|null
@@ -88,11 +95,53 @@ function csrf_token(): ?string
     return null;
 }
 
-function view($path, ...$vars): string
+function validate(array $data, array $rules): bool
 {
-    extract($vars);
+    $validator = new Validator();
+    $validation = $validator->make($data, $rules);
+
+    $validation->setAliases(ATTR_ALIASES);
+    $validation->setMessages(CUSTOM_MESSAGES);
+    $validation->setTranslations([
+        'and' => 'og',
+        'or' => 'eller',
+        'with' => 'med',
+    ]);
+
+    $validation->validate();
+
+    if ($validation->fails())
+        $_SESSION['errors'] = $validation->errors()->all();
+
+    return $validation->fails();
+}
+
+function view($path, $params = []): string
+{
+    extract($params);
 
     ob_start();
     include(sprintf('%s/%s.php', VIEW_DIR, $path));
     return ob_get_clean();
+}
+
+function asset($path): string
+{
+    return rtrim($_ENV['APP_URL'], '/') . '/' . ltrim($path, '/');
+}
+
+function paginate(string $query, int $itemsPerPage, int $pageNumber = 1): string
+{
+    return $query . sprintf(
+        ' limit %s, %s',
+        $itemsPerPage * ($pageNumber - 1),
+        $itemsPerPage
+    );
+}
+
+function activateLink(string $routeName): string
+{
+    $currentRoute = request()->getLoadedRoute()->getName();
+
+    return $currentRoute === $routeName ? 'active' : '';
 }
