@@ -9,7 +9,7 @@ class UserController
 {
     public function index(): string
     {
-        return view('signup');
+        return view('home');
     }
     public function store(): void
     {
@@ -21,7 +21,7 @@ class UserController
                 password_hash(input('pass'), PASSWORD_BCRYPT),
                 input('email'),
             ]);
-            redirect(url(''));    
+            redirect(url('home'));    
         
     }
     public function login(): void
@@ -38,6 +38,11 @@ class UserController
 
         $_SESSION['user'] = $user;
 
-        redirect(url('adresse'));
+        redirect(url('address'));
+    }
+    public function signout()
+    {
+        $_SESSION['user'] = null;
+        redirect(url('home'));
     }
 }

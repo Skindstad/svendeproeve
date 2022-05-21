@@ -2,7 +2,6 @@
 session_set_cookie_params(12 * 3600, '/');
 session_start();
 
-
 define('ROOT_DIR', dirname(__DIR__));
 define('VIEW_DIR', ROOT_DIR . '/resources/views');
 

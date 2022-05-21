@@ -10,12 +10,11 @@ class addressController
     public function index(): string
     {
 
-       $address = DB::select('SELECT * FROM address');
+       $addresses = DB::select('SELECT * FROM address WHERE user_id = ?', [$_SESSION['user']['id']]);
 
-        echo $address;
 
         return view('adresse', [
-            'address' => $address
+            'addresses' => $addresses
         ]);
     }
     public function store(): void
@@ -25,7 +24,7 @@ class addressController
             input('address'),
             input('zipcode'),
         ]);
-        redirect(url('/adresse'));    
+        redirect(url('/address'));    
         
     }
 }

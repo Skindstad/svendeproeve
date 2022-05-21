@@ -16,7 +16,7 @@ class DB
 
     public static function init(): void
     {
-        $name = "svendepoeve";
+        $name = "svendeproeve";
         $host = "127.0.0.1";
         $user = "root";
         $pass = "";

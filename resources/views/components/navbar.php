@@ -1,11 +1,18 @@
-<div class="navbar">
-<ul>
-    <li><a href="/">Login</a></li>
-    <li class="<?= activateLink('signup') ?>"><a href="/signup">Sign-up</a></li>
+<?php
 
-    <!-- After you have log in -->
-    <li class="<?= activateLink('address') ?>"><a href="/address">Adresse</a></li>
-    <li class="<?= activateLink('settings') ?>"><a href="/settings">Instilling</a></li>
-    <li class="<?= activateLink('logout') ?>"><a href="/">Logout</a></li>
-</ul>
+use App\Auth;
+
+?>
+<div >
+    <ul class="navbar-nav d-none d-md-flex">
+        <?php if (Auth::guard('guest')) { ?>
+            <li class="nav-item <?= activateLink('home') ?>"><a href="<?= url('home') ?>" class="nav-link">Login</a></li>
+        <?php } ?>
+        <!-- After you have log in -->
+        <?php if (Auth::guard('user')) { ?>
+            <li class="nav-item <?= activateLink('address') ?>"><a class="nav-link" href="<?= url('address') ?>">Adresse</a></li>
+            <li class="nav-item <?= activateLink('settings') ?>"><a class="nav-link" href="/">Instilling</a></li>
+            <li class="nav-item <?= activateLink('signout') ?>"><a class="nav-link" href="<?= url('signout') ?>">Logout</a></li>
+        <?php } ?>
+    </ul>
 </div>

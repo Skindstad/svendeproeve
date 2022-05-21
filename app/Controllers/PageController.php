@@ -4,8 +4,8 @@ namespace App\Controllers;
 
 class PageController
 {
-    public function index(): string
+    /* public function index(): string
     {
         return view('home');
-    }
+    } */
 }
