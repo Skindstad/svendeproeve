@@ -2,15 +2,16 @@
 
 namespace App\Middleware\Auth;
 
+use App\Auth;
 use Pecee\Http\Middleware\IMiddleware;
 use Pecee\Http\Request;
-use App\Auth;
 
-class Authenticated implements IMiddleware
+class Administrator implements IMiddleware
 {
     public function handle(Request $request): void
     {
-        if (! Auth::guard('admin', 'maintenance', 'user'))
+        // Send user to home page, if they are not an administrator.
+        if (! Auth::guard('admin'))
             redirect(url('home'));
     }
 }

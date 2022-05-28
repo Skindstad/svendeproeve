@@ -5,27 +5,18 @@
  */
 ?>
 <?= view('components/header', ['title' => 'adresse']) ?>
+<div class="sticky-alerts">
+  <?= view('components/toasts') ?>
+</div>
 <?= view('components/navbar') ?>
-<div class="row mt-20 pt-20">
-  <div class="col-2"></div>
-  <div class="col-8">
-    <h1><?= $_SESSION['user']['firstname'] ?> <?= $_SESSION['user']['lastname'] ?></h1>
-    <div class="card">
-      <h2 class="card-title">Opret adresse</h2>
-      <form action="<?= url('address-create') ?>" method="post">
-        <input class="form-control" type="hidden" name="id" value="<?= $_SESSION['user']['id'] ?>">
-        <div class="form-group">
-          <label for="" class="required">Adresse:</label>
-          <input class="form-control" type="text" name="address" id="" placeholder="Adresse" required>
-        </div>
-        <div class="form-group">
-          <label for="Post-nr." class="required">Post-nr.:</label>
-          <input class="form-control" type="text" name="zipcode" id="" placeholder="Post nr." required>
-        </div>
-        <div class="form-group">
-          <button type="submit" class="btn btn-primary">Opret</button>
-        </div>
-      </form>
+<?= view('modals/create_address') ?>
+<div class="row">
+  <div class="col-1"></div>
+  <div class="col-10">
+    <div class="row d-flex">
+      <div class="col-2 align-self-center p-20">
+        <button class="btn btn-primary" data-toggle="modal" data-target="new-address">Opret Address</button>
+      </div>
     </div>
     <table class="table">
       <thead>
@@ -44,14 +35,22 @@
             <td><?= $address['address'] ?></td>
             <td><?= $address['zip_code'] ?></td>
             <td><a href="<?= url('measurement', ['addressId' => $address['id']]) ?>">Måling</a></td>
-            <td><button type="submit" class="btn">Slet</button></td>
+            <td>
+              <form action="<?= url('address-delete', ['address' => $address['id']]) ?>" method="post">
+                <input type="hidden" name="_method" value="DELETE">
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Er du sikker? Denne handling kan ikke fortrydes.');">
+                  Slet&nbsp;
+                  <i class="fas fa-trash"></i>
+                </button>
+              </form>
+            </td>
           </tr>
         <?php $x++;
         } ?>
       </tbody>
     </table>
   </div>
-  <div class="col-2"></div>
+  <div class="col-1"></div>
 </div>
 
 <?= view('components/footer') ?>

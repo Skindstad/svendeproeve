@@ -1,5 +1,3 @@
-</div>
-
 <!-- Halfmoon JS -->
 <script src="/script/halfmoon.min.js"></script>
 
