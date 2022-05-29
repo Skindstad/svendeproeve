@@ -1,0 +1,21 @@
+<option value="m">Meter</option>
+<option value="km">Kilometer</option>
+<option value="kg">Kilogram</option>
+<option value="g">Gram</option>
+<option value="&#13217">Kvadratmeter</option>
+<option value="&#13221">Kubikmeter</option>
+<option value="W">Watt</option>
+<option value="kW">Kilowatt</option>
+<option value="J">Joule</option>
+<option value="V">Volt</option>
+<option value="t">Ton</option>
+<option value="L">Liter</option>
+<option value="min">Minut</option>
+<option value="h">Time</option>
+<option value="sek">Sekund</option>
+<option value="A">Ampere</option>
+<option value="K">Kelvin</option>
+<option value="cd">Candela</option>
+<option value="mol">Mol</option>
+<option value="&#8451">Grad celsius</option>
+

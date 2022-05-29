@@ -9,7 +9,7 @@
   <?= view('components/toasts') ?>
 </div>
 <?= view('components/navbar') ?>
-<?= view('modals/create_address') ?>
+<?= view('modals/create') ?>
 <div class="row">
   <div class="col-1"></div>
   <div class="col-10">

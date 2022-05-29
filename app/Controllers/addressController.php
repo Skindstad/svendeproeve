@@ -19,12 +19,21 @@ class addressController
     }
     public function store(): void
     {
+
+        $validation = validate(input()->all(), [
+            'address' => 'required',
+            'zip_code' => 'required',
+        ]);
+
+        if ($validation)
+            redirect(url('address'));
+
         DB::insert('INSERT INTO address (`user_id`, `address`,`zip_code`) VALUES (?, ?, ?)', [
             input('id'),
             input('address'),
-            input('zipcode'),
+            input('zip_code'),
         ]);
-        redirect(url('/address'));
+        redirect(url('address'));
     }
     public function destroy($id): void
     {

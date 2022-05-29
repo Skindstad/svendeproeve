@@ -1,5 +1,6 @@
 <!-- Halfmoon JS -->
 <script src="/script/halfmoon.min.js"></script>
+<script src="/script/script.js"></script>
 
 <script type="text/javascript">
     <?php if (isset($_SESSION['errors'])) { ?>

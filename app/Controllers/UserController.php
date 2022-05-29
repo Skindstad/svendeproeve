@@ -52,6 +52,13 @@ class UserController
 
         $user = DB::selectFirst('select * from users where username = ?', [input('username')]);
 
+        $validation = validate(input()->all(), [
+            'username' => 'required',
+            'password' => 'required',
+        ]);
+
+        if ($validation)
+            redirect(url(''));
 
         if ($user === null)
             redirectWithError(url(''), 'Den givne bruger kunne ikke findes.');

@@ -10,11 +10,11 @@
             <form action="<?= url('login') ?>" method="post">
                 <div class="form-group">
                     <label for="Brugernavn" class="required">Brugernavn:</label>
-                    <input class="form-control" type="text" name="username" id="user" required placeholder="Username">
+                    <input class="form-control" type="text" name="username" id="user" placeholder="Username">
                 </div>
                 <div class="form-group">
                     <label for="Adgangskode" class="required">Adgangskode:</label>
-                    <input class="form-control" type="password" name="password" id="pass" required placeholder="Adgangskode">
+                    <input class="form-control" type="password" name="password" id="pass" placeholder="Adgangskode">
                 </div>
                 <div class="row">
                     <div class="col">
@@ -35,27 +35,27 @@
             <form action="<?= url('signup') ?>" method="post">
                 <div class="form-group">
                     <label for="Brugernavn" class="required">Brugernavn:</label>
-                    <input class="form-control" type="text" name="username" id="" placeholder="Brugernavn" required>
+                    <input class="form-control" type="text" name="username" id="" placeholder="Brugernavn">
                 </div>
                 <div class="form-group">
                     <label for="Fornavn" class="required">Fornavn:</label>
-                    <input class="form-control" type="text" name="firstname" id="" placeholder="Fornavn" required>
+                    <input class="form-control" type="text" name="firstname" id="" placeholder="Fornavn">
                 </div>
                 <div class="form-group">
                     <label for="Efternavn" class="required">Efternavn:</label>
-                    <input class="form-control" type="text" name="lastname" id="" placeholder="Efternavn" required>
+                    <input class="form-control" type="text" name="lastname" id="" placeholder="Efternavn" >
                 </div>
                 <div class="form-group">
                     <label for="Adgangskode" class="required">Adgangskode:</label>
-                    <input class="form-control" type="password" name="password" id="" placeholder="Adgangskode" required>
+                    <input class="form-control" type="password" name="password" id="" placeholder="Adgangskode">
                 </div>
                 <div class="form-group">
                     <label for="Gentag Adgangskode" class="required">Gentag Adgangskode:</label>
-                    <input class="form-control" type="password" name="repeatpassword" id="" placeholder="Gentag Adgangskode" required>
+                    <input class="form-control" type="password" name="repeatpassword" id="" placeholder="Gentag Adgangskode">
                 </div>
                 <div class="form-group">
                     <label for="Email" class="required">Email:</label>
-                    <input class="form-control" type="email" name="email" id="" placeholder="Email" required>
+                    <input class="form-control" type="email" name="email" id="" placeholder="Email">
                 </div>
                 <div class="form-group text-right">
                     <button class="btn btn-primary" type="submit">Sign-up</button>

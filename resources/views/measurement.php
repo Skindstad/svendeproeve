@@ -11,8 +11,8 @@
   <?= view('components/toasts') ?>
 </div>
 <?= view('components/navbar') ?>
-<?= view('modals/create_measurement', ['address' => $address]) ?>
-<?= view('modals/create_result', ['measurement' => $measurement, 'address' => $address]) ?>
+<?= view('modals/create', ['measurement' => $measurement, 'address' => $address]) ?>
+<?= view('modals/update', ['results' => $results]) ?>
 <div class="row">
   <div class="col-1"></div>
   <div class="col-8">
@@ -34,6 +34,10 @@
     <div class="collapse-content">
       <div class="row">
         <div class="col-6">
+          <!-- maybe you  need to update measurement-->
+          <!-- <div class="col align-self-center">
+            <button class="btn btn-primary" data-toggle="modal" data-target="new-result">opdater Måling</button>
+          </div> -->
           <form action="<?= url('measurement-delete', ['measurement' => $value['id']]) ?>" method="post">
             <input type="hidden" name="_method" value="DELETE">
             <input type="hidden" name="address" value="<?= $address['id'] ?>">
@@ -44,20 +48,40 @@
           </form>
           <table class="table">
             <thead>
-              <td>Dato</td>
-              <td>Måling resultat (<?= $value['unit'] ?>)</td>
-              <td>Stigning</td>
+              <td class="text-center">Dato</td>
+              <td class="text-center">Måling resultat (<?= $value['unit'] ?>)</td>
+              <td class="text-center">Stigning</td>
+              <td class="text-center">Stigning pr. dag</td>
             </thead>
             <tbody>
-              <?php foreach ($result as $val) {
-                if ($val['measurement_id'] == $value['id']) { ?>
+              <?php 
+              $x = 0;
+              foreach ($results as $result) {
+                $x++;
+                if ($result['measurement_id'] == $value['id']) { ?>
                   <tr>
-                    <td><?= $val['date'] ?></td>
-                    <td><?= $val['result'] ?> <?= $value['unit'] ?></td>
-                    <td>0</td>
+                    <td class="text-center"><?= $result['date'] ?></td>
+                    <td class="text-center">
+                      <button class="btn btn-link" data-toggle="modal" data-target="<?= $result['id'] ?>"><?= $result['result'] ?> <?= $value['unit'] ?></button>
+                    </td>
+                    <td class="text-center">
+                      <!-- reads Increase-->
+                      <?php if( end($results)['id'] != $result['id']) {?>
+                          <?= $result['result'] - $results[$x]['result'] ?> <?= $value['unit'] ?>
+                       <?php }else { ?>
+                        0 <?= $value['unit'] ?>
+                        <?php } ?>
+                    </td>
+                    <!-- reads Increase pr day -->
+                    <td class="text-center">
+                      <?php if( end($results)['id'] != $result['id']) {?>
+                          <?= $result['result'] - $results[$x]['result'] ?> <?= $value['unit'] ?>
+                       <?php }else { ?>
+                        0 <?= $value['unit'] ?>
+                        <?php } ?>
+                    </td>
                   </tr>
-              <?php }
-              } ?>
+              <?php }} ?>
             </tbody>
           </table>
         </div>
