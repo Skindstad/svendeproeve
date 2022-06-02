@@ -4,12 +4,6 @@ namespace App;
 
 use PDO;
 
-/* $name = "svendepoeve";
-$host = "127.0.0.1";
-$user = "root";
-$pass = ""; */
-
-
 class DB
 {
     protected static PDO $pdo;

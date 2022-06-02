@@ -37,16 +37,16 @@ class addressController
     }
     public function destroy($id): void
     {
-
+        echo $id;
         $doc = DB::selectFirst('select * from address where id = ?', [$id]);
 
         if ($doc === null)
             redirectWithError(url('/address'), 'Det givne adresse kunne ikke findes.');
 
-        $measurement = DB::select('SELECT * FROM measurement WHERE address_id = ?', [$doc['id']]);
+        $measurement = DB::select('SELECT * FROM measurement WHERE address_id = ?', [$id]);
 
         foreach ($measurement as $val) {
-            $result = DB::select('SELECT * FROM result WHERE measurement_id = ?', [$doc['id']]);
+            $result = DB::select('SELECT * FROM result WHERE measurement_id = ?', [$val['id']]);
             foreach ($result as $value) {
                 DB::delete('delete from result where id = ?', [$value['id']]);
             }

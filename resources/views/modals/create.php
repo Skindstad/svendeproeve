@@ -3,7 +3,7 @@
 /**
  * * @var array $users
  * * @var array $address
- * * @var array $measurement
+ * * @var array $measurements
  * * @var array $result
  */
 ?>
@@ -67,7 +67,8 @@
     </div>
   </div>
 </div>
-<div class="modal" id="new-result" tabindex="-1" role="dialog">
+<?php foreach ($measurements as $value) { ?>
+<div class="modal" id="<?= $value['id'] ?>" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content p-20">
       <a href="#" class="close" role="button" aria-label="Close">
@@ -76,14 +77,7 @@
       <h5 class="modal-title">Opret resultat</h5>
       <form action="<?= url('measurement-result') ?>" method="post">
       <input type="hidden" name="address" value="<?= $address['id'] ?>">
-      <div class="form-group">
-        <label for="Måling" class="required">Måling:</label>
-          <select class="form-control" name="id" id="">
-            <?php foreach ($measurement as $value) { ?>
-              <option value="<?= $value['id'] ?>"><?= $value['measurement_name'] ?></option>
-            <?php } ?>
-          </select>
-      </div>
+      <input type="hidden" name="id" value="<?= $value['id'] ?>">
       <div class="form-group">
         <label for="Resultat" class="required">Resultat:</label>
           <input class="form-control" type="text" name="result" id="" placeholder="resultat">
@@ -99,3 +93,4 @@
     </div>
   </div>
 </div>
+<?php } ?>

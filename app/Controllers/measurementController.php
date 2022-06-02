@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\DB;
 use Rakit\Validation\Validator;
+use DateTime;
 
 class measurementController
 {
@@ -11,12 +12,33 @@ class measurementController
   {
     $address = DB::selectFirst('SELECT * FROM address WHERE id = ?', [$addressId]);
     $measurement = DB::select('SELECT * FROM measurement WHERE address_id = ?', [$addressId]);
-    $results = DB::select('SELECT *, DATE_FORMAT(dato, ?) as date FROM result order by date desc', ['%d-%m-%Y']);
+
+     $measurements = [];
+     // looper measurement
+    foreach ($measurement as $value) {
+      $x = 0; $increase = [];
+      $results = DB::select('SELECT *, DATE_FORMAT(dato, ?) as date FROM result WHERE measurement_id = ? order by dato desc', ['%d-%m-%Y', $value['id']]);
+      // looper result
+      foreach ($results as $result) {
+        // just check if the id macths the measurement_id
+       if ($result['measurement_id'] == $value['id']) { $x++;
+          // if not the end of the array it will take the if statment
+          if (end($results)['id'] != $result['id']) {
+            $datetime1 = new DateTime($result['date']); $datetime2 = new DateTime($results[$x]['date']);
+            $interval = $datetime1->diff($datetime2);
+            $increase[] = array('id' => $result['id'], 'date' => $result['date'], 'result' => $result['result'], 'increase' => $result['result'] - $results[$x]['result'], 'day' => ( $result['result'] - $results[$x]['result']) / $interval->format('%a'));
+          } else {
+            $increase[] = array('id' => $result['id'], 'date' => $result['date'], 'result' => $result['result'], 'increase' => 0, 'day' => 0);
+          }
+        } 
+      }
+      // sample the two arrays together
+      $measurements[] = array('id' => $value['id'], 'name' => $value['measurement_name'], 'unit' => $value['unit'], 'result' => $increase);
+    } 
 
     return view('measurement', [
       "address" => $address,
-      "measurement" => $measurement,
-      "results" => $results
+      "measurements" => $measurements,
     ]);
   }
   public function store(): void
@@ -46,12 +68,12 @@ class measurementController
   {
     $measurement = DB::selectFirst('SELECT * FROM measurement WHERE id = ?', [input('id')]);
 
-    if($measurement === null)
+    if ($measurement === null)
       redirectWithError(url('/' . input('address') . '/measurement'), 'Det givne måling kunne ikke findes.');
 
     $result = DB::selectFirst('SELECT * FROM result WHERE measurement_id = ? AND dato = ?', [input('id'), input('date')]);
 
-    if($result !== null )
+    if ($result !== null)
       redirectWithError(url('/' . input('address') . '/measurement'), 'Du kan ikke have to målinger den samme dato');
 
     $validation = validate(input()->all(), [
@@ -62,7 +84,7 @@ class measurementController
       redirect(url('/' . input('address') . '/measurement'));
 
     $result = DB::select('SELECT * FROM result WHERE measurement_id = ?', [input('id')]);
-      
+
     DB::insert('INSERT INTO result (`measurement_id`,`result`, `dato`) VALUES (?, ?, ?)', [
       input('id'),
       input('result'),

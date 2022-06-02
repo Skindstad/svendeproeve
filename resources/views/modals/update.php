@@ -2,10 +2,11 @@
 
 /**
  * * @var array $users
- * * @var array $results
+ * * @var array $measurements
  */
 ?>
-<?php foreach ($results as $result) { ?>
+<?php foreach ($measurements as $value) { 
+  foreach($value['result'] as $result){?>
   <div class="modal" id="<?= $result['id'] ?>" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content p-20">
@@ -29,4 +30,4 @@
       </div>
     </div>
   </div>
-<?php } ?>
+<?php }} ?>
