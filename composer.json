@@ -1,6 +1,6 @@
 {
     "require": {
-        "php": "^8.1",
+        "php": "^8.0",
         "bluesheep/php-jsonenv": "^1.0",
         "robmorgan/phinx": "^0.12.10",
         "ext-pdo": "*",
