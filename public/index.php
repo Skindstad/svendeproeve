@@ -15,7 +15,7 @@ require_once(ROOT_DIR . '/helpers.php');
 
 // Load environment
 $env = new JsonEnv(ROOT_DIR . '/.env.json');
-//$env->load();
+$env->load();
 
 // Load custom validation messages
 require_once(ROOT_DIR . '/resources/i18n/custom_messages.php');

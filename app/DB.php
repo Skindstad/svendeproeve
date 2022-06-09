@@ -3,19 +3,14 @@
 namespace App;
 
 use PDO;
-
 class DB
 {
     protected static PDO $pdo;
 
     public static function init(): void
     {
-        $name = "svendeproeve";
-        $host = "127.0.0.1";
-        $user = "root";
-        $pass = "";
-        $dsn = sprintf('mysql:host=%s;dbname=%s;charset=utf8;', $host, $name);
-        self::$pdo = new PDO($dsn, $user, $pass);
+        $dsn = sprintf('mysql:host=%s;dbname=%s;charset=utf8;', env('DB_HOST'), env('DB_NAME'));
+        self::$pdo = new PDO($dsn, env('DB_USER'), env('DB_PASS'));
         self::$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         self::$pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
     }

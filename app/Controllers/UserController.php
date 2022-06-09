@@ -9,6 +9,7 @@ class UserController
 {
     public function index(): string
     {
+        
         return view('home');
     }
     public function settings(): string
