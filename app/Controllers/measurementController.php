@@ -43,8 +43,6 @@ class measurementController
   }
   public function store(): void
   {
-
-
     $validation = validate(input()->all(), [
       'measurement_name' => 'required',
       'unit' => 'required',
@@ -68,6 +66,11 @@ class measurementController
   {
     $measurement = DB::selectFirst('SELECT * FROM measurement WHERE id = ?', [input('id')]);
 
+    $validation = validate(input()->all(), [
+      'result' => 'required',
+      'date' => 'required',
+    ]);
+
     if ($measurement === null)
       redirectWithError(url('/' . input('address') . '/measurement'), 'Det givne måling kunne ikke findes.');
 
@@ -76,23 +79,40 @@ class measurementController
     if ($result !== null)
       redirectWithError(url('/' . input('address') . '/measurement'), 'Du kan ikke have to målinger den samme dato');
 
+    if ($validation)
+      redirect(url('/' . input('address') . '/measurement'));
+
+    $result = DB::select('SELECT * FROM result WHERE measurement_id = ?', [input('id')]);
+
+      DB::insert('INSERT INTO result (`measurement_id`,`result`, `dato`) VALUES (?, ?, ?)', [
+      input('id'),
+      input('result'),
+      input('date'),
+    ]);  
+
+      redirect(url('/' . input('address') . '/measurement')); 
+  }
+
+  public function update(): void {
+
     $validation = validate(input()->all(), [
       'result' => 'required',
     ]);
 
     if ($validation)
       redirect(url('/' . input('address') . '/measurement'));
+     
+    
+     DB::update('UPDATE result SET result = ? WHERE id = ?', [
+        input('result'),
+        input('id'),
+    ]); 
 
-    $result = DB::select('SELECT * FROM result WHERE measurement_id = ?', [input('id')]);
 
-    DB::insert('INSERT INTO result (`measurement_id`,`result`, `dato`) VALUES (?, ?, ?)', [
-      input('id'),
-      input('result'),
-      input('date'),
-    ]);
-
-    redirect(url('/' . input('address') . '/measurement'));
+     redirect(url('/' . input('address') . '/measurement'));
   }
+
+
   public function destroy($id): void
   {
 

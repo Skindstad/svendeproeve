@@ -2,6 +2,7 @@
 
 /**
  * * @var array $users
+ * * @var array $address
  * * @var array $measurements
  */
 ?>
@@ -13,7 +14,7 @@
         <span aria-hidden="true">&times;</span>
       </a>
       <h5 class="modal-title">Opret resultat</h5>
-      <form action="<?= url('measurement-result') ?>" method="post">
+      <form action="<?= url('result-create') ?>" method="post">
       <input type="hidden" name="address" value="<?= $address['id'] ?>">
       <input type="hidden" name="id" value="<?= $value['id'] ?>">
       <div class="form-group">
@@ -41,14 +42,13 @@
           <span aria-hidden="true">&times;</span>
         </a>
         <h5 class="modal-title">Opdater resultat</h5>
-        <form action="<?= url('result-update') ?>" method="post">
+        <form action="<?= url('result-update')?>" method="post">
           <input type="hidden" name="_method" value="PATCH" />
-          <input class="form-control" type="hidden" name="id" value="<?= $result['id'] ?>">
+          <input type="hidden" name="id" value="<?= $result['id'] ?>" />
+          <input type="hidden" name="address" value="<?= $address['id'] ?>" />
           <div class="form-group">
             <label for="" class="required">Resultat:</label>
             <input class="form-control" type="text" name="result" value="<?= $result['result'] ?>" placeholder="Resultat">
-          </div>
-          <div class="form-group">
           </div>
           <div class="form-group">
             <button type="submit" class="btn btn-primary">Opdater</button>

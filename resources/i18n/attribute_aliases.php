@@ -13,5 +13,5 @@ define('ATTR_ALIASES', [
     'password' => 'Kodeord',
     'repeatpassword' => 'Kodeord',
     'oldpassword' => 'Gamle kodeord',
-    'phone_number' => 'Tlf. Nr.',
+    'date' => 'Dato',
 ]);

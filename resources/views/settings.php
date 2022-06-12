@@ -12,7 +12,7 @@
                         <input type="hidden" name="id" value="<?= $_SESSION['user']['id'] ?>">
                         <div class="form-group">
                                 <label for="Brugernavn" class="required">Brugernavn:</label>
-                                <input class="form-control" type="text" name="user" id="Brugeuserrnavn" value="<?= $_SESSION['user']['username'] ?>" required placeholder="Username">
+                                <input class="form-control" type="text" name="username" id="Brugeuserrnavn" value="<?= $_SESSION['user']['username'] ?>" required placeholder="Username">
                         </div>
                         <div class="form-group">
                                 <label for="Brugernavn" class="required">Fornavn:</label>
@@ -27,12 +27,16 @@
                                 <input class="form-control" type="email" name="email" id="email" value="<?= $_SESSION['user']['email'] ?>" required placeholder="Email">
                         </div>
                         <div class="form-group">
-                                <label for="Brugernavn" class="required">Adgangskode:</label>
-                                <input class="form-control" type="password" name="password" id="password" placeholder="Adgangskode">
+                                <label for="Brugernavn" class="required"> Nuværende adgangskode:</label>
+                                <input class="form-control" type="password" name="oldpassword" id="password" placeholder="Adgangskode">
+                        </div>
+                        <div class="form-group">
+                                <label for="Brugernavn" class="required">Ny adgangskode:</label>
+                                <input class="form-control" type="password" name="password" id="password" placeholder="Gentag adgangskode">
                         </div>
                         <div class="form-group">
                                 <label for="Brugernavn" class="required">Gentag adgangskode:</label>
-                                <input class="form-control" type="password" name="g_password" id="g_password" placeholder="Gentag adgangskode">
+                                <input class="form-control" type="password" name="repeatpassword" id="password" placeholder="Gentag adgangskode">
                         </div>
                         <div class="form-group">
                                 <button type="submit" class="btn btn-primary">Opdater</button>

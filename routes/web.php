@@ -36,7 +36,8 @@ Route::group(['middleware' => Authenticated::class], function () {
     Route::group(['prefix' => '/{addressId}'], function () {
         Route::get('/measurement', [measurementController::class, 'index'])->name('measurement');
         Route::post('/opret', [measurementController::class, 'store'])->name('measurement-create');
-        Route::post('/result', [measurementController::class, 'result'])->name('measurement-result');
+        Route::post('/result', [measurementController::class, 'result'])->name('result-create');
+        Route::patch('/result', [measurementController::class, 'update'])->name('result-update');
         Route::delete('/{measurement}/delete', [measurementController::class, 'destroy'])->name('measurement-delete');
     });
 });

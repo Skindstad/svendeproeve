@@ -11,7 +11,7 @@
 </div>
 <?= view('components/navbar') ?>
 <?= view('modals/create', ['measurements' => $measurements, 'address' => $address]) ?>
-<?= view('modals/update', ['measurements' => $measurements]) ?>
+<?= view('modals/update', ['measurements' => $measurements,'address' => $address]) ?>
 <div class="row">
   <div class="col-1"></div>
   <div class="col-8">
@@ -67,7 +67,9 @@
             </tbody>
           </table>
         </div>
-        <div class="col-6"></div>
+        <div class="col-6">
+        <?= view('charts/line', ['measurements' => $value,]) ?>
+        </div>
       </div>
     </div>
   </details>
