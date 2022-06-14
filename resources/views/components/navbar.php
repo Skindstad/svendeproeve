@@ -17,7 +17,7 @@ use App\Auth;
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
                         <?php if (Auth::guard('admin')) { ?>
-                            <a href="<?= url('user_Overview') ?>" class="dropdown-item">
+                            <a href="#" class="dropdown-item">
                                 Bruger oversigt
                             </a>
                         <?php } ?>

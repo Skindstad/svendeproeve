@@ -51,6 +51,9 @@ class measurementController
     if ($validation)
       redirect(url('/' . input('id') . '/measurement'));
 
+    $measurement = DB::select('SELECT * FROM measurement WHERE address_id = ? AND measurement_name = ?', [input('id'), input('measurement_name')]);
+    if($measurement != null)
+      redirectWithError(url('/' . input('id') . '/measurement'), 'Der kan ikke være to målinger med det samme navn på en adresse');
 
     DB::insert('INSERT INTO measurement (`address_id`,`measurement_name`, `measurement_type`, `unit`) VALUES (?, ?, ?, ?)', [
       input('id'),
