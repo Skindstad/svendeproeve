@@ -85,8 +85,6 @@ class measurementController
     if ($validation)
       redirect(url('/' . input('address') . '/measurement'));
 
-    $result = DB::select('SELECT * FROM result WHERE measurement_id = ?', [input('id')]);
-
       DB::insert('INSERT INTO result (`measurement_id`,`result`, `dato`) VALUES (?, ?, ?)', [
       input('id'),
       input('result'),
